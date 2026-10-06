@@ -1,5 +1,7 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
-
 public class ControllerPrime {
     public static void main(String[] args) {
         String c=JOptionPane.showInputDialog("Enter number of columns:");
