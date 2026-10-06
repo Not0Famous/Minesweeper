@@ -9,11 +9,11 @@ public class MinesweeperPrime
     JPanel textPanel=new JPanel();
     JPanel boardPanel=new JPanel();
     int tileSize=60;
-    int numRows;
-    int numCols;
-    int numOfMines;
-    int boardWidth;
-    int boardHeight;
+    int numRows=0;
+    int numCols=0;
+    int numOfMines=0;
+    int boardWidth=0;
+    int boardHeight=0;
     Minetile[][] board;
     ArrayList<Minetile> mineList;
     int tilesclicked=0;
@@ -46,13 +46,14 @@ public class MinesweeperPrime
     }
 
     public void MineInterface(){
+        Font emojiFont = getEmojiFont(25);
         for (int r=0;r<numRows;r++)
         {
             for (int c=0;c<numCols;c++)
             {
                 Minetile tile=new Minetile(r,c);
                 board[r][c]=tile;
-                tile.setFont(new Font("Arial Unicode MS",Font.PLAIN,25));
+                tile.setFont(emojiFont);
                 tile.setBackground(new Color(48, 204, 43));
                 tile.setBorder(BorderFactory.createLineBorder(new Color(6, 124, 8), 1));
                 tile.addMouseListener(new MouseAdapter()
@@ -88,6 +89,26 @@ public class MinesweeperPrime
         }
         setMines();
         frame.setVisible(true);
+    }
+    private Font getEmojiFont(int size){
+        String[] preferredFonts={
+            "Segoe UI Emoji",
+            "Apple Color Emoji",
+            "Noto Color Emoji",
+            "Arial Unicode MS",
+            "Dialog"
+        };
+        String[] availableFonts=GraphicsEnvironment
+                .getLocalGraphicsEnvironment()
+                .getAvailableFontFamilyNames();
+        for(String preferredFont:preferredFonts){
+            for(String availableFont:availableFonts){
+                if(availableFont.equalsIgnoreCase(preferredFont)){
+                    return new Font(availableFont,Font.PLAIN,size);
+                }
+            }
+        }
+        return new Font("Dialog",Font.PLAIN,size);
     }
     public void setMines(){
         mineList=new ArrayList<Minetile>();
